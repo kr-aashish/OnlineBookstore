@@ -1,6 +1,8 @@
 package com.example.springapi.api.model;
 
 public class Book {
+
+    private int bookId;
     private String Title;
     private String authorName;
     private double price;
@@ -9,7 +11,8 @@ public class Book {
     public Book() {
     }
 
-    public Book(String Title, String authorName, double price, Category category) {
+    public Book(int bookId, String Title, String authorName, double price, Category category) {
+        this.bookId = bookId;
         this.Title = Title;
         this.authorName = authorName;
         this.price = price;
@@ -46,5 +49,13 @@ public class Book {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public int getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
     }
 }
