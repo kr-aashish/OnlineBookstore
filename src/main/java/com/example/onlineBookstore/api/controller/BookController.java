@@ -39,7 +39,7 @@ public class BookController {
         Book createdBook = bookService.createBook(book);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdBook); // 201 Created
     }
-    
+
     @PutMapping
     public ResponseEntity<Book> updateBook(@RequestBody Book book) {
         Book existingBook = bookService.getBook(book.getBookId()).orElse(null);
