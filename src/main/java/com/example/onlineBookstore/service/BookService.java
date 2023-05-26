@@ -2,42 +2,58 @@ package com.example.onlinebookstore.service;
 
 import com.example.onlinebookstore.api.model.Book;
 import com.example.onlinebookstore.api.model.Category;
+import com.example.onlinebookstore.dao.BookDao;
+import com.example.onlinebookstore.dao.CategoryDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class BookService {
 
-    private List<Book> bookList = new ArrayList<Book>();
+    private final BookDao bookDao;
+    private final CategoryDao categoryDao;
 
-    public BookService() {
-        bookList = new ArrayList<>();
-
-        // Create dummy entries
-        Category dummyCategory = new Category(1, "dummyCategory");
-        List<Category> dummyCategoryList = new ArrayList<>();
-        dummyCategoryList.add(dummyCategory);
-
-        Book bookOne = new Book(1, "BookOne", "authorOne", 23, dummyCategoryList);
-        Book bookTwo = new Book(2, "BookTwo", "authorTwo", 25, dummyCategoryList);
-
-        bookList.addAll(Arrays.asList(bookOne, bookTwo));
+    @Autowired
+    public BookService(BookDao bookDao, CategoryDao categoryDao) {
+        this.bookDao = bookDao;
+        this.categoryDao = categoryDao;
     }
 
-    public Optional<Book> getBook(Integer bookId) {
-        Optional optionalBook = Optional.empty();
+    public Optional<Book> getBook(int bookId) {
+        return Optional.ofNullable(bookDao.getBookById(bookId));
+    }
 
-        for (Book book : bookList) {
-            if (book.getBookId() == bookId) {
-                optionalBook = Optional.of(book);
-                return optionalBook;
+    public List<Book> getAllBooks() {
+        return bookDao.getAllBooks();
+    }
+
+    public Book createBook(Book book) {
+        return bookDao.saveBook(book);
+    }
+
+    public Book updateBook(Book book) {
+        return bookDao.updateBook(book);
+    }
+
+    public boolean deleteBook(Integer bookId) {
+        return bookDao.deleteBook(bookId);
+    }
+
+    public void addCategoryToBook(int bookId, Category category) {
+        Book book = bookDao.getBookById(bookId);
+        if (book != null) {
+            Category existingCategory = categoryDao.getCategoryById(category.getCategoryId());
+            if (existingCategory == null) {
+                categoryDao.saveCategory(category);
+            } else {
+                category = existingCategory;
             }
+            book.setCategory(category);
+            bookDao.updateBook(book);
         }
-
-        return optionalBook;
     }
+
 }
