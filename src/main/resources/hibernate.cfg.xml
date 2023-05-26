@@ -5,15 +5,16 @@
     <session-factory>
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost:3306/your_database_name</property>
-        <property name="connection.username">your_username</property>
-        <property name="connection.password">your_password</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/online_bookstore</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">god_speed</property>
 
         <!-- Hibernate properties -->
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
         <property name="hibernate.show_sql">true</property>
         <property name="hibernate.format_sql">true</property>
         <property name="hibernate.use_sql_comments">true</property>
+        <property name="hibernate.hbm2ddl.auto">update</property>
 
         <!-- Mapping files -->
         <!-- Add your entity classes here -->
