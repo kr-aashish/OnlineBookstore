@@ -1,7 +1,7 @@
-package com.example.springapi.service;
+package com.example.onlinebookstore.service;
 
-import com.example.springapi.api.model.Book;
-import com.example.springapi.api.model.Category;
+import com.example.onlinebookstore.api.model.Book;
+import com.example.onlinebookstore.api.model.Category;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,9 +18,12 @@ public class BookService {
         bookList = new ArrayList<>();
 
         // Create dummy entries
-        Category dummyCategory = new Category("dummyCategory");
-        Book bookOne = new Book(1, "BookOne","authorOne", 23, dummyCategory);
-        Book bookTwo = new Book(2, "BookTwo","authorTwo", 25, dummyCategory);
+        Category dummyCategory = new Category(1, "dummyCategory");
+        List<Category> dummyCategoryList = new ArrayList<>();
+        dummyCategoryList.add(dummyCategory);
+
+        Book bookOne = new Book(1, "BookOne", "authorOne", 23, dummyCategoryList);
+        Book bookTwo = new Book(2, "BookTwo", "authorTwo", 25, dummyCategoryList);
 
         bookList.addAll(Arrays.asList(bookOne, bookTwo));
     }
