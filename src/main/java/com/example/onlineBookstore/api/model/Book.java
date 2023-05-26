@@ -1,30 +1,54 @@
-package com.example.springapi.api.model;
+package com.example.onlinebookstore.api.model;
 
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
+@Table(name = "books")
 public class Book {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "book_id")
     private int bookId;
-    private String Title;
+
+    @Column(name = "title")
+    private String title;
+
+    @Column(name = "author_name")
     private String authorName;
+
+    @Column(name = "price")
     private double price;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
     private Category category;
 
     public Book() {
     }
 
-    public Book(int bookId, String Title, String authorName, double price, Category category) {
-        this.bookId = bookId;
-        this.Title = Title;
+    public Book(String title, String authorName, double price, Category category) {
+        this.title = title;
         this.authorName = authorName;
         this.price = price;
         this.category = category;
     }
 
+    public int getBookId() {
+        return bookId;
+    }
+
+    public void setBookId(int bookId) {
+        this.bookId = bookId;
+    }
+
     public String getTitle() {
-        return Title;
+        return title;
     }
 
     public void setTitle(String title) {
-        Title = title;
+        this.title = title;
     }
 
     public String getAuthorName() {
@@ -49,13 +73,5 @@ public class Book {
 
     public void setCategory(Category category) {
         this.category = category;
-    }
-
-    public int getBookId() {
-        return bookId;
-    }
-
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
     }
 }
