@@ -1,0 +1,23 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <!-- Database connection settings -->
+        <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mysql://localhost:3306/your_database_name</property>
+        <property name="connection.username">your_username</property>
+        <property name="connection.password">your_password</property>
+
+        <!-- Hibernate properties -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+        <property name="hibernate.use_sql_comments">true</property>
+
+        <!-- Mapping files -->
+        <!-- Add your entity classes here -->
+        <mapping class="com.example.onlinebookstore.api.model.Category"/>
+        <mapping class="com.example.onlinebookstore.api.model.Book"/>
+    </session-factory>
+</hibernate-configuration>
