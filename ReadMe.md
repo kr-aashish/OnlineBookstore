@@ -105,7 +105,7 @@ The application will start, and you should see log messages indicating the appli
 #### Test Category APIs:
    - Create a Category:
      - Set the request method to **POST**.
-     - Set the request URL to **http://localhost:8080/api/categories**.
+     - Set the request URL to **http://localhost:8080/categories**.
      - Set the request body to a JSON object containing the category information, for example:
        ```
        {
@@ -115,17 +115,17 @@ The application will start, and you should see log messages indicating the appli
      - Send the request to create a new category.
    - Retrieve all Categories:
      - Set the request method to **GET**.
-     - Set the request URL to **http://localhost:8080/api/categories**.
+     - Set the request URL to **http://localhost:8080/categories**.
      - Send the request to retrieve all categories.
    - Retrieve a specific Category:
      - Set the request method to **GET**.
-     - Set the request URL to **http://localhost:8080/api/categories/{categoryId}**, replacing **{categoryId}** with the actual ID of the category you want to retrieve.
+     - Set the request URL to **http://localhost:8080/categories/{categoryId}**, replacing **{categoryId}** with the actual ID of the category you want to retrieve.
      - Send the request to retrieve the specific category.
 
 #### Test Book APIs:
    - Create a Book:
      - Set the request method to **POST**.
-     - Set the request URL to **http://localhost:8080/api/books**.
+     - Set the request URL to **http://localhost:8080/books**.
      - Set the request body to a JSON object containing the book information, including the associated category ID, for example:
        ```
        {
@@ -141,20 +141,20 @@ The application will start, and you should see log messages indicating the appli
      - Send the request to create a new book.
    - Retrieve all Books:
      - Set the request method to **GET**.
-     - Set the request URL to **http://localhost:8080/api/books**.
+     - Set the request URL to **http://localhost:8080/books**.
      - Send the request to retrieve all books.
    - Retrieve a specific Book:
      - Set the request method to **GET**.
-     - Set the request URL to **http://localhost:8080/api/books/{bookId}**, replacing **{bookId}** with the actual ID of the book you want to retrieve.
+     - Set the request URL to **http://localhost:8080/books/{bookId}**, replacing **{bookId}** with the actual ID of the book you want to retrieve.
      - Send the request to retrieve the specific book.
    - Update a Book:
      - Set the request method to **PUT**.
-     - Set the request URL to **http://localhost:8080/api/books**
+     - Set the request URL to **http://localhost:8080/books**
      - Set the request body to a JSON object containing the updated book information, use bookId parameter to mention the book which is to be updated.
      - Send the request to update the book.
    - Delete a Book:
      - Set the request method to **DELETE**.
-     - Set the request URL to **http://localhost:8080/api/books/{bookId}**, replacing **{bookId}** with the actual ID of the book you want to delete.
+     - Set the request URL to **http://localhost:8080/books/{bookId}**, replacing **{bookId}** with the actual ID of the book you want to delete.
      - Send the request to delete the book.
 
 ### **Additional Configuration Options**
