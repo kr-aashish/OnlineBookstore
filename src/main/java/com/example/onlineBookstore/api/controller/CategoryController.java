@@ -1,4 +1,4 @@
-package com.example.onlineBookstore.api.controller;
+package com.example.onlinebookstore.api.controller;
 
 import com.example.onlinebookstore.api.model.Category;
 import com.example.onlinebookstore.service.CategoryService;
