@@ -15,7 +15,7 @@ function execute_curl {
 
     # Print status code
     status_code=$(echo "$response" | head -n 1 | awk '{print $2}')
-    echo "Status Code: $status_code"
+    # echo "Status Code: $status_code"
 
     # Print response body
     echo "Response Body:"
@@ -46,4 +46,4 @@ execute_curl "curl -s -X GET '$base_url/books/{bookId}'" "Retrieve Specific Book
 execute_curl "curl -s -X PUT -H 'Content-Type: application/json' -d '{\"bookId\":1,\"title\":\"Updated Book Title\",\"authorName\":\"Updated Author\",\"price\":250,\"category\":{\"categoryId\":1,\"name\":\"Fiction\"}}' '$base_url/books'" "Update Book"
 
 # Delete a Book (replace {bookId} with the actual ID)
-execute_curl "curl -s -X DELETE '$base_url/books/{bookId}'" "Delete Book"
+execute_curl "curl -s -X DELETE '$base_url/books/2'" "Delete Book"
