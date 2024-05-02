@@ -31,7 +31,7 @@ execute_curl "curl -s -X POST -H 'Content-Type: application/json' -d '{\"name\":
 execute_curl "curl -s -X GET '$base_url/categories'" "Retrieve All Categories"
 
 # Retrieve a specific Category (replace {categoryId} with the actual ID)
-execute_curl "curl -s -X GET '$base_url/categories/{categoryId}'" "Retrieve Specific Category"
+execute_curl "curl -s -X GET '$base_url/categories/1'" "Retrieve Specific Category"
 
 # Create a Book
 execute_curl "curl -s -X POST -H 'Content-Type: application/json' -d '{\"title\":\"The Alchemist\",\"authorName\":\"Paulo Coelho\",\"price\":300,\"category\":{\"categoryId\":1,\"name\":\"Fiction\"}}' '$base_url/books'" "Create Book"
@@ -40,10 +40,10 @@ execute_curl "curl -s -X POST -H 'Content-Type: application/json' -d '{\"title\"
 execute_curl "curl -s -X GET '$base_url/books'" "Retrieve All Books"
 
 # Retrieve a specific Book (replace {bookId} with the actual ID)
-execute_curl "curl -s -X GET '$base_url/books/{bookId}'" "Retrieve Specific Book"
+execute_curl "curl -s -X GET '$base_url/books/1'" "Retrieve Specific Book"
 
 # Update a Book (replace {bookId} with the actual ID and adjust the body accordingly)
 execute_curl "curl -s -X PUT -H 'Content-Type: application/json' -d '{\"bookId\":1,\"title\":\"Updated Book Title\",\"authorName\":\"Updated Author\",\"price\":250,\"category\":{\"categoryId\":1,\"name\":\"Fiction\"}}' '$base_url/books'" "Update Book"
 
 # Delete a Book (replace {bookId} with the actual ID)
-execute_curl "curl -s -X DELETE '$base_url/books/2'" "Delete Book"
+execute_curl "curl -s -X DELETE '$base_url/books/1'" "Delete Book"
