@@ -57,7 +57,8 @@ public class CategoryDao {
     }
 
     public Category getCategoryById(int categoryId) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (@SuppressWarnings("resource")
+        Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.get(Category.class, categoryId);
         } catch (Exception e) {
             e.printStackTrace();
@@ -66,7 +67,8 @@ public class CategoryDao {
     }
 
     public List<Category> getAllCategories() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (@SuppressWarnings("resource")
+        Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("FROM Category", Category.class).list();
         } catch (Exception e) {
             e.printStackTrace();

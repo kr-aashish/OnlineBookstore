@@ -82,7 +82,8 @@ public class BookDao {
 
 
     public List<Book> getAllBooks() {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
+        try (@SuppressWarnings("resource")
+        Session session = HibernateUtil.getSessionFactory().openSession()) {
             return session.createQuery("SELECT b FROM Book b JOIN FETCH b.category", Book.class).list();
         } catch (Exception e) {
             e.printStackTrace();
