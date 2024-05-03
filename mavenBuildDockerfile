@@ -1,0 +1,43 @@
+# Use a base image with Java and Maven installed
+FROM amazoncorretto:17 AS build
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Install wget to download Maven
+RUN yum install -y wget
+RUN yum install -y tar
+
+# Download and install Maven 3.9.6
+RUN wget https://mirrors.estointernet.in/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz && \
+    tar -xvf apache-maven-3.6.3-bin.tar.gz && \
+    mv apache-maven-3.6.3 /opt/ && \
+    rm apache-maven-3.9.6-bin.tar.gz
+
+# Add Maven bin directory to the PATH
+ENV PATH="/opt/apache-maven-3.6.3/bin:${PATH}"
+
+# Copy the Maven project descriptor (pom.xml) to the container
+COPY pom.xml .
+
+# Copy the entire project source code to the container
+COPY src ./src
+
+# Build the application with Maven
+# RUN ./mvnw package -DskipTests
+RUN mvn clean install
+
+# Create a new stage for the final image
+FROM amazoncorretto:17
+
+# Set the working directory in the final image
+WORKDIR /app
+
+# Copy the JAR file built in the previous stage to the final image
+COPY --from=build /app/target/*.jar app.jar
+
+# Expose the port that the Spring Boot application listens on (default is 8080)
+EXPOSE 5050
+
+# Command to run the Spring Boot application when the container starts
+CMD ["java", "-jar", "app.jar"]
