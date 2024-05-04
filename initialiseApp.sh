@@ -7,7 +7,7 @@ rm -r db
 
 docker-compose down && docker-compose up -d --build
 
-docker cp ./initialiseDatabase.sql online-book-store-db-1:/
+docker cp ./initialiseDatabase.sql onlinebookstore-db-1:/
 
 sleep 10
-docker exec online-book-store-db-1 psql -U postgres -d online-book-store < initialiseDatabase.sql
+docker exec onlinebookstore-db-1 psql -U postgres -d online-book-store < initialiseDatabase.sql
