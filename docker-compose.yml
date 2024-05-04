@@ -34,8 +34,10 @@ services:
 
   app:
     build: .
+    environment:
+      - SERVER_PORT=5050
     ports:
-      - 8080:8080
+      - 8080:5050
     depends_on:
       - db
     volumes:
