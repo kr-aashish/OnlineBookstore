@@ -1,0 +1,69 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+# Parameters:
+#   BucketName:
+#     Type: String
+#     Default: online-book-store-deployment-stack  # Default S3 bucket name
+
+Resources:
+  # MyS3Bucket:
+  #   Type: AWS::S3::Bucket
+  #   Properties:
+  #     BucketName: !Ref BucketName
+
+  # MyEC2KeyPair:
+  #   Type: AWS::EC2::KeyPair
+  #   Properties:
+  #     KeyName: onlineBookStore  # Specify your EC2 key pair name
+  #     PublicKeyMaterial: |
+  #       -----BEGIN PUBLIC KEY-----
+  #       ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDKwQup1/4LiGRqOcidGaaSIxgpaBw9uLMU4bM3cIHuO65oDLxWy2i2bIJ35FHUvj1FavnevDvcJbdxSS938KvJgem1O3dfDpTGqFEB3ICwBD6HONqHJsFf0XP3rJ1RzTBIh2Ep932NJninPvUqkKVQHr3co/ufgIH4+bRCz3Llll7LfzNy+HgRl6GOwMQVn3mQfzJIIRuATFQ4HsQ5yERA8nPVTfOtbI7HtVuxmd8TcXi36/keF5x9WAufRg0FZeHzxZgEAzbtI9oO7JiWDv8wbTx/6/ImarL723CxtNPTdpFx1CNArH/d2OiIAOithbaQy/eo04kDg5XmnBLIN05n+z0uJlSW1Y7B96EBQv8+FTmKZE5XxUFZ3bKnUnEbH97bFNm0xmR2xr2uzPzhjBGuDdKsqzKDZSlm7tjJdksHwkJr5Lq2jOLMU1Dgs+5vX/9qn3iZRX0LFBkzsAWEIO8SUwNQN5ThUTqpx7e+TpbrRKj4cnI7oys/TJ8Y8Gf7k9ceUhVc+m1gF/yZOmK/9TdyExgSWKlc649wNa4bQ0g315gHw0a/InjxBs8zD8fIMG2hSJKCPWDywkYSiQb6xKT3skTzBs9bhFHjY4UclIgF2KGencrczwa+V9ePrwcOgVddVHxTokNWTqJf0eDanVmjKsceh9sp0WVFydhdUHYNOw== aashish.kumar@rootquotient.com
+  #       -----END PUBLIC KEY-----
+
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-0ddda618e961f2270  # Specify your desired AMI ID
+      SecurityGroups:
+        - Ref: OnlineBookStoreGroup  # Reference the security group defined below
+      # KeyName: !Ref MyEC2KeyPair  # Use the created key pair
+      KeyName: key-pair
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash -xe
+          sudo yum update -y
+          sudo yum install docker -y
+          sudo systemctl start docker
+          sudo usermod -a -G docker ec2-user
+          sudo systemctl enable docker
+          sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          sudo yum install git -y
+          sudo yum install maven -y
+          git clone https://github.com/kr-aashish/OnlineBookstore
+          cd /OnlineBookstore/
+          sudo chmod +x initialiseApp.sh && sudo chmod +x client.sh
+          sudo ./initialiseApp.sh && ./client.sh
+
+  OnlineBookStoreGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for EC2 instance
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0  # Allow SSH from anywhere (use a more restricted IP range for production)
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0  # Allow HTTP from anywhere
+        - IpProtocol: tcp
+          FromPort: 443
+          ToPort: 443
+          CidrIp: 0.0.0.0/0  # Allow HTTPS from anywhere
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 8080
+          CidrIp: 0.0.0.0/0  # Allow HTTPS from anywhere

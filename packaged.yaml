@@ -1,0 +1,68 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Resources:
+  MyEC2Instance:
+    Type: AWS::EC2::Instance
+    Properties:
+      InstanceType: t2.micro
+      ImageId: ami-0ddda618e961f2270
+      SecurityGroups:
+      - Ref: OnlineBookStoreGroup
+      KeyName: key-pair
+      UserData:
+        Fn::Base64:
+          Fn::Sub: '#!/bin/bash -xe
+
+            sudo yum update -y
+
+            sudo yum install docker -y
+
+            sudo systemctl start docker
+
+            sudo usermod -a -G docker ec2-user
+
+            sudo systemctl enable docker
+
+            sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname
+            -s)-$(uname -m) -o /usr/local/bin/docker-compose
+
+            sudo chmod +x /usr/local/bin/docker-compose
+
+            sudo yum install git -y
+
+            sudo yum install maven -y
+
+            git clone https://github.com/kr-aashish/OnlineBookstore
+
+            cd /OnlineBookstore/
+
+            sudo chmod +x initialiseApp.sh && sudo chmod +x client.sh
+
+            sudo ./initialiseApp.sh && ./client.sh
+
+            '
+    Metadata:
+      SamResourceId: MyEC2Instance
+  OnlineBookStoreGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Security group for EC2 instance
+      SecurityGroupIngress:
+      - IpProtocol: tcp
+        FromPort: 22
+        ToPort: 22
+        CidrIp: '0.0.0.0/0'
+      - IpProtocol: tcp
+        FromPort: 80
+        ToPort: 80
+        CidrIp: '0.0.0.0/0'
+      - IpProtocol: tcp
+        FromPort: 443
+        ToPort: 443
+        CidrIp: '0.0.0.0/0'
+      - IpProtocol: tcp
+        FromPort: 80
+        ToPort: 8080
+        CidrIp: '0.0.0.0/0'
+    Metadata:
+      SamResourceId: OnlineBookStoreGroup

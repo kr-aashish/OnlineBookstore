@@ -39,3 +39,6 @@ build/
 
 ## DB
 db/
+
+## SAM
+.aws-sam/
