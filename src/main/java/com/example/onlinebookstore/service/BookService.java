@@ -1,7 +1,7 @@
 package com.example.onlinebookstore.service;
 
-import com.example.onlinebookstore.api.model.Book;
-import com.example.onlinebookstore.api.model.Category;
+import com.example.onlinebookstore.model.Book;
+import com.example.onlinebookstore.model.Category;
 import com.example.onlinebookstore.dao.BookDao;
 import com.example.onlinebookstore.dao.CategoryDao;
 import org.springframework.beans.factory.annotation.Autowired;

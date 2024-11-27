@@ -1,6 +1,6 @@
 package com.example.onlinebookstore.service;
 
-import com.example.onlinebookstore.api.model.Category;
+import com.example.onlinebookstore.model.Category;
 import com.example.onlinebookstore.dao.CategoryDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

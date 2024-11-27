@@ -1,8 +1,8 @@
 package com.example.onlinebookstore.dao;
 
-import com.example.onlinebookstore.api.model.Book;
-import com.example.onlinebookstore.api.model.Category;
-import com.example.onlinebookstore.api.util.HibernateUtil;
+import com.example.onlinebookstore.model.Book;
+import com.example.onlinebookstore.model.Category;
+import com.example.onlinebookstore.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Repository;

@@ -1,4 +1,4 @@
-package com.example.onlinebookstore.api.model;
+package com.example.onlinebookstore.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
