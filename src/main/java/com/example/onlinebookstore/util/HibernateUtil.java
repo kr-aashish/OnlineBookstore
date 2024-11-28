@@ -14,8 +14,11 @@ public class HibernateUtil {
         if (sessionFactory == null) {
             try {
                 System.out.println("Attempting to configure Hibernate...");
+                String environment = System.getProperty("hibernate.env", "production"); // Default to production
+                String configFile = environment.equals("test") ? "hibernate-test.cfg.xml" : "hibernate.cfg.xml";
+
                 StandardServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
-                        .configure() // Load configuration from hibernate.cfg.xml
+                        .configure(configFile) // Load the appropriate configuration file
                         .build();
                 sessionFactory = new Configuration().buildSessionFactory(serviceRegistry);
                 System.out.println("Hibernate SessionFactory created successfully.");
