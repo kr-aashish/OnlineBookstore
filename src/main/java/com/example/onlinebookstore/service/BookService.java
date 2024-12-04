@@ -1,9 +1,9 @@
 package com.example.onlinebookstore.service;
 
-import com.example.onlinebookstore.model.Book;
-import com.example.onlinebookstore.model.Category;
-import com.example.onlinebookstore.dao.BookDao;
-import com.example.onlinebookstore.dao.CategoryDao;
+import com.example.onlinebookstore.entity.Book;
+import com.example.onlinebookstore.entity.Category;
+import com.example.onlinebookstore.repository.BookDao;
+import com.example.onlinebookstore.repository.CategoryDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

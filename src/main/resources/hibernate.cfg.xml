@@ -18,7 +18,7 @@
 
         <!-- Mapping files -->
         <!-- Add your entity classes here -->
-        <mapping class="com.example.onlinebookstore.model.Category"/>
-        <mapping class="com.example.onlinebookstore.model.Book"/>
+        <mapping class="com.example.onlinebookstore.entity.Category"/>
+        <mapping class="com.example.onlinebookstore.entity.Book"/>
     </session-factory>
 </hibernate-configuration>

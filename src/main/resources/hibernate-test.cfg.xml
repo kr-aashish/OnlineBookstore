@@ -17,7 +17,7 @@
         <property name="hibernate.hbm2ddl.auto">create-drop</property> <!-- Create schema for testing -->
 
         <!-- Mapping files -->
-        <mapping class="com.example.onlinebookstore.model.Category"/>
-        <mapping class="com.example.onlinebookstore.model.Book"/>
+        <mapping class="com.example.onlinebookstore.entity.Category"/>
+        <mapping class="com.example.onlinebookstore.entity.Book"/>
     </session-factory>
 </hibernate-configuration>

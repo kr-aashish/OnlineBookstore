@@ -1,7 +1,7 @@
 package com.example.onlinebookstore.controller;
 
-import com.example.onlinebookstore.dao.CategoryDao;
-import com.example.onlinebookstore.model.Category;
+import com.example.onlinebookstore.repository.CategoryDao;
+import com.example.onlinebookstore.entity.Category;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

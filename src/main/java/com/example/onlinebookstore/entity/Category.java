@@ -1,4 +1,4 @@
-package com.example.onlinebookstore.model;
+package com.example.onlinebookstore.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

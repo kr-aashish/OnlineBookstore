@@ -1,22 +1,21 @@
-package com.example.onlinebookstore.dao;
+package com.example.onlinebookstore.repository;
 
-import com.example.onlinebookstore.model.Book;
-import com.example.onlinebookstore.model.Category;
+import com.example.onlinebookstore.entity.Book;
+import com.example.onlinebookstore.entity.Category;
 import com.example.onlinebookstore.util.HibernateUtil;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public class BookDao {
-    public Book saveBook(Book book) {
+public class CategoryDao {
+    public void saveCategory(Category category) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.save(book);
+            session.save(category);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -24,14 +23,13 @@ public class BookDao {
             }
             e.printStackTrace();
         }
-        return book;
     }
 
-    public Book updateBook(Book book) {
+    public void updateCategory(Category category) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            session.update(book);
+            session.update(category);
             transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
@@ -39,71 +37,56 @@ public class BookDao {
             }
             e.printStackTrace();
         }
-        return book;
     }
 
-    public boolean deleteBook(int bookId) {
+    public void deleteCategory(int categoryId) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
-            Book book = session.get(Book.class, bookId);
-            if (book != null) {
-                session.delete(book);
-                transaction.commit();
-                return true;
-            } else {
-                transaction.rollback();
-                return false;
+            Category category = session.get(Category.class, categoryId);
+            if (category != null) {
+                session.delete(category);
             }
+            transaction.commit();
         } catch (Exception e) {
             if (transaction != null) {
                 transaction.rollback();
             }
             e.printStackTrace();
-            return false;
         }
     }
 
-    public Book getBookById(int bookId) {
-        try (Session session = HibernateUtil.getSessionFactory().openSession()) {
-            Query<Book> query = session.createQuery("SELECT b FROM Book b JOIN FETCH b.category WHERE b.bookId = :bookId", Book.class);
-            query.setParameter("bookId", bookId);
-            List<Book> resultList = query.getResultList();
-            if (!resultList.isEmpty()) {
-                return resultList.get(0);
-            } else {
-                return null; // Book with the specified ID not found
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-
-    public List<Book> getAllBooks() {
+    public Category getCategoryById(int categoryId) {
         try (@SuppressWarnings("resource")
         Session session = HibernateUtil.getSessionFactory().openSession()) {
-            return session.createQuery("SELECT b FROM Book b JOIN FETCH b.category", Book.class).list();
+            return session.get(Category.class, categoryId);
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
 
+    public List<Category> getAllCategories() {
+        try (@SuppressWarnings("resource")
+        Session session = HibernateUtil.getSessionFactory().openSession()) {
+            return session.createQuery("FROM Category", Category.class).list();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
-
-    public void addCategoryToBook(int bookId, int categoryId) {
+    public void addBookToCategory(int categoryId, int bookId) {
         Transaction transaction = null;
         try (Session session = HibernateUtil.getSessionFactory().openSession()) {
             transaction = session.beginTransaction();
 
-            Book book = session.get(Book.class, bookId);
             Category category = session.get(Category.class, categoryId);
+            Book book = session.get(Book.class, bookId);
 
-            if (book != null && category != null) {
-                book.setCategory(category);
-                session.update(book);
+            if (category != null && book != null) {
+                category.getBooks().add(book);
+                session.update(category);
             }
 
             transaction.commit();

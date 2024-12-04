@@ -1,6 +1,6 @@
 package com.example.onlinebookstore.controller;
 
-import com.example.onlinebookstore.model.Book;
+import com.example.onlinebookstore.entity.Book;
 import com.example.onlinebookstore.service.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

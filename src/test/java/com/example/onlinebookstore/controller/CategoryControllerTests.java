@@ -1,6 +1,6 @@
 package com.example.onlinebookstore.controller;
 
-import com.example.onlinebookstore.model.Category;
+import com.example.onlinebookstore.entity.Category;
 import com.example.onlinebookstore.service.CategoryService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -11,7 +11,6 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
